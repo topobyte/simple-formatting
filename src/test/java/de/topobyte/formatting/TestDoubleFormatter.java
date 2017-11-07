@@ -50,6 +50,14 @@ public class TestDoubleFormatter
 		formatAndCheck(1234.5678901234, 0);
 		formatAndCheck(1234.5678901234, 1);
 		formatAndCheck(1234.5678901234, 13);
+
+		formatAndCheck(123456.78901234, 0);
+		formatAndCheck(123456.78901234, 1);
+		formatAndCheck(123456.78901234, 13);
+
+		formatAndCheck(123456.78901234, 0);
+		formatAndCheck(123456.78901234, 1);
+		formatAndCheck(123456.78901234, 13);
 	}
 
 	private void formatAndCheck(double number, int fractionDigits)
