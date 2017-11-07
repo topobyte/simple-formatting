@@ -38,6 +38,18 @@ public class TestDoubleFormatter
 		formatAndCheck(1.2, 0);
 		formatAndCheck(1.2, 1);
 		formatAndCheck(1.2, 14);
+
+		formatAndCheck(12.345678901234, 0);
+		formatAndCheck(12.345678901234, 1);
+		formatAndCheck(12.345678901234, 13);
+
+		formatAndCheck(123.45678901234, 0);
+		formatAndCheck(123.45678901234, 1);
+		formatAndCheck(123.45678901234, 13);
+
+		formatAndCheck(1234.5678901234, 0);
+		formatAndCheck(1234.5678901234, 1);
+		formatAndCheck(1234.5678901234, 13);
 	}
 
 	private void formatAndCheck(double number, int fractionDigits)
