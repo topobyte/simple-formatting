@@ -47,16 +47,27 @@ public class DoubleFormatter
 				integral += 1;
 			}
 		}
-		buffer.append(integral);
+		String integralPart = Long.toString(integral);
+		buffer.append(integralPart);
+		int usedDigits = integralPart.length();
 
 		if (fractionDigits > 0) {
 			buffer.append(".");
-			formatFractionDigits(buffer, d);
+			formatFractionDigits(buffer, d, usedDigits);
 		}
 	}
 
-	private void formatFractionDigits(StringBuilder buffer, double d)
+	private void formatFractionDigits(StringBuilder buffer, double d,
+			int usedDigits)
 	{
+		int maxDigits = 17 - usedDigits;
+		int validDigits = fractionDigits;
+		int additionalDigits = 0;
+		if (maxDigits < validDigits) {
+			additionalDigits = validDigits - maxDigits;
+			validDigits = maxDigits;
+		}
+
 		double number = d;
 		long nintegral = (long) number;
 
@@ -65,8 +76,10 @@ public class DoubleFormatter
 
 		logger.debug("format: " + d + " with " + fractionDigits + " digits");
 		logger.debug(number + " " + nintegral);
+		logger.debug(
+				"used digits: " + usedDigits + " valid digits: " + validDigits);
 		double x = (number - nintegral) * 10;
-		for (int i = 0; i < fractionDigits; i++) {
+		for (int i = 0; i < validDigits; i++) {
 			int integral = (int) (x);
 
 			logger.debug(String.format("%.30f %d", x, integral));
@@ -75,7 +88,10 @@ public class DoubleFormatter
 			x = (number - integral) * 10;
 		}
 
+		logger.debug("digits: " + ints);
+		logger.debug("remainder: " + x);
 		if (x >= 5) {
+			logger.debug("rounding up");
 			for (int i = ints.size() - 1; i >= 0; i--) {
 				int oldI = ints.get(i);
 				int newI = oldI + 1;
@@ -86,6 +102,10 @@ public class DoubleFormatter
 					ints.set(i, 0);
 				}
 			}
+		}
+
+		for (int i = 0; i < additionalDigits; i++) {
+			ints.add(0);
 		}
 
 		for (int i : ints) {
