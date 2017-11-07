@@ -88,7 +88,7 @@ public class DoubleFormatter
 			}
 		}
 
-		for (Integer i : ints) {
+		for (int i : ints) {
 			buffer.append(i);
 		}
 	}
