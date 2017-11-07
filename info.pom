@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <name>Simple Formatting</name>
+  <description>Simple replacement for String.format()</description>
+  <url>https://github.com/topobyte/simple-formatting</url>
+</project>
