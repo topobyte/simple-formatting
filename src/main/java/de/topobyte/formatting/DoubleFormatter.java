@@ -60,7 +60,7 @@ public class DoubleFormatter
 	private void formatFractionDigits(StringBuilder buffer, double d,
 			int usedDigits)
 	{
-		int maxDigits = 17 - usedDigits;
+		int maxDigits = 16 - usedDigits;
 		int validDigits = fractionDigits;
 		int additionalDigits = 0;
 		if (maxDigits < validDigits) {
