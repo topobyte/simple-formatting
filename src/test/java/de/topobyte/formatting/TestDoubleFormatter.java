@@ -31,33 +31,35 @@ public class TestDoubleFormatter
 	@Test
 	public void test()
 	{
-		formatAndCheck(1.2345678901234, 0);
-		formatAndCheck(1.2345678901234, 1);
-		formatAndCheck(1.2345678901234, 13);
+		formatAndCheck(1.2345678901234, 0, 13);
+		formatAndCheck(1.2, 0, 13);
+		formatAndCheck(12.345678901234, 0, 13);
+		formatAndCheck(123.45678901234, 0, 13);
+		formatAndCheck(1234.5678901234, 0, 13);
+		formatAndCheck(12345.678901234, 0, 13);
+		formatAndCheck(123456.78901234, 0, 13);
+		formatAndCheck(1234567.8901234, 0, 13);
+		formatAndCheck(12345678.901234, 0, 13);
+		formatAndCheck(123456789.01234, 0, 13);
+		formatAndCheck(1234567890.1234, 0, 13);
+		formatAndCheck(12345678901.234, 0, 13);
+		formatAndCheck(123456789012.34, 0, 13);
+		formatAndCheck(1234567890123.4, 0, 13);
 
-		formatAndCheck(1.2, 0);
-		formatAndCheck(1.2, 1);
-		formatAndCheck(1.2, 14);
+		formatAndCheck(12345678.901234, 0, 13);
+		formatAndCheck(12345678.9012345, 0, 13);
+		formatAndCheck(12345678.90123456, 0, 13);
+		formatAndCheck(12345678.901234567, 0, 13);
+		formatAndCheck(12345678.9012345678, 0, 13);
+		formatAndCheck(12345678.90123456789, 0, 13);
+	}
 
-		formatAndCheck(12.345678901234, 0);
-		formatAndCheck(12.345678901234, 1);
-		formatAndCheck(12.345678901234, 13);
-
-		formatAndCheck(123.45678901234, 0);
-		formatAndCheck(123.45678901234, 1);
-		formatAndCheck(123.45678901234, 13);
-
-		formatAndCheck(1234.5678901234, 0);
-		formatAndCheck(1234.5678901234, 1);
-		formatAndCheck(1234.5678901234, 13);
-
-		formatAndCheck(123456.78901234, 0);
-		formatAndCheck(123456.78901234, 1);
-		formatAndCheck(123456.78901234, 13);
-
-		formatAndCheck(123456.78901234, 0);
-		formatAndCheck(123456.78901234, 1);
-		formatAndCheck(123456.78901234, 13);
+	private void formatAndCheck(double number, int minFractionDigits,
+			int maxFractionDigits)
+	{
+		for (int f = minFractionDigits; f <= maxFractionDigits; f++) {
+			formatAndCheck(number, f);
+		}
 	}
 
 	private void formatAndCheck(double number, int fractionDigits)
