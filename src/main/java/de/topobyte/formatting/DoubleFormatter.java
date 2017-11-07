@@ -41,10 +41,19 @@ public class DoubleFormatter
 	{
 		long integral = (long) d;
 
+		boolean negative = d < 0;
+
 		if (fractionDigits == 0) {
-			double fraction = d - integral;
-			if (fraction >= 0.5) {
-				integral += 1;
+			if (negative) {
+				double fraction = -d + integral;
+				if (fraction >= 0.5) {
+					integral -= 1;
+				}
+			} else {
+				double fraction = d - integral;
+				if (fraction >= 0.5) {
+					integral += 1;
+				}
 			}
 		}
 		String integralPart = Long.toString(integral);
