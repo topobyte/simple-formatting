@@ -40,6 +40,9 @@ public class TestDoubleFormatter
 	public static Collection<Object[]> data()
 	{
 		List<Object[]> data = new ArrayList<>();
+		add(data, 0, 0, 5);
+		add(data, 1, 0, 5);
+		add(data, -1, 0, 5);
 		add(data, Double.NaN, 0, 5);
 		add(data, Double.NEGATIVE_INFINITY, 0, 5);
 		add(data, Double.POSITIVE_INFINITY, 0, 5);
