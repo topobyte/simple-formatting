@@ -79,6 +79,9 @@ public class DoubleFormatter
 		logger.debug(
 				"used digits: " + usedDigits + " valid digits: " + validDigits);
 		double x = (number - nintegral) * 10;
+		if (x < 0) {
+			x = -x;
+		}
 		for (int i = 0; i < validDigits; i++) {
 			int integral = (int) (x);
 

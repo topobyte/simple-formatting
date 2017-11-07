@@ -74,6 +74,7 @@ public class TestDoubleFormatter
 	{
 		for (int f = minFractionDigits; f <= maxFractionDigits; f++) {
 			add(data, number, f);
+			add(data, -number, f);
 		}
 	}
 
