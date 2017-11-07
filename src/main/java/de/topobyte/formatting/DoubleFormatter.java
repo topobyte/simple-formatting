@@ -41,6 +41,12 @@ public class DoubleFormatter
 	{
 		long integral = (long) d;
 
+		if (fractionDigits == 0) {
+			double fraction = d - integral;
+			if (fraction >= 0.5) {
+				integral += 1;
+			}
+		}
 		buffer.append(integral);
 
 		if (fractionDigits > 0) {
@@ -68,7 +74,7 @@ public class DoubleFormatter
 			x = (number - integral) * 10;
 		}
 
-		if (x > 5) {
+		if (x >= 5) {
 			for (int i = ints.size() - 1; i >= 0; i--) {
 				int oldI = ints.get(i);
 				int newI = oldI + 1;
