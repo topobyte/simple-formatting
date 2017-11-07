@@ -60,6 +60,7 @@ public class DoubleFormatter
 		double number = d;
 		long nintegral = (long) number;
 
+		// TODO: use a list of primitive ints here
 		List<Integer> ints = new ArrayList<>();
 
 		logger.debug("format: " + d + " with " + fractionDigits + " digits");
