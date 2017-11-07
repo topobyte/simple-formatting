@@ -17,52 +17,82 @@
 
 package de.topobyte.formatting;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@RunWith(Parameterized.class)
 public class TestDoubleFormatter
 {
 
 	final static Logger logger = LoggerFactory
 			.getLogger(TestDoubleFormatter.class);
 
-	@Test
-	public void test()
+	@Parameters(name = "{index}: format({0}, {1})")
+	public static Collection<Object[]> data()
 	{
-		formatAndCheck(1.2345678901234, 0, 13);
-		formatAndCheck(1.2, 0, 13);
-		formatAndCheck(12.345678901234, 0, 13);
-		formatAndCheck(123.45678901234, 0, 13);
-		formatAndCheck(1234.5678901234, 0, 13);
-		formatAndCheck(12345.678901234, 0, 13);
-		formatAndCheck(123456.78901234, 0, 13);
-		formatAndCheck(1234567.8901234, 0, 13);
-		formatAndCheck(12345678.901234, 0, 13);
-		formatAndCheck(123456789.01234, 0, 13);
-		formatAndCheck(1234567890.1234, 0, 13);
-		formatAndCheck(12345678901.234, 0, 13);
-		formatAndCheck(123456789012.34, 0, 13);
-		formatAndCheck(1234567890123.4, 0, 13);
-
-		formatAndCheck(12345678.901234, 0, 13);
-		formatAndCheck(12345678.9012345, 0, 13);
-		formatAndCheck(12345678.90123456, 0, 13);
-		formatAndCheck(12345678.901234567, 0, 13);
-		formatAndCheck(12345678.9012345678, 0, 13);
-		formatAndCheck(12345678.90123456789, 0, 13);
+		List<Object[]> data = new ArrayList<>();
+		add(data);
+		return data;
 	}
 
-	private void formatAndCheck(double number, int minFractionDigits,
-			int maxFractionDigits)
+	private static void add(List<Object[]> data)
+	{
+		add(data, 1.2345678901234, 0, 13);
+		add(data, 1.2, 0, 13);
+		add(data, 12.345678901234, 0, 13);
+		add(data, 123.45678901234, 0, 13);
+		add(data, 1234.5678901234, 0, 13);
+		add(data, 12345.678901234, 0, 13);
+		add(data, 123456.78901234, 0, 13);
+		add(data, 1234567.8901234, 0, 13);
+		add(data, 12345678.901234, 0, 13);
+		add(data, 123456789.01234, 0, 13);
+		add(data, 1234567890.1234, 0, 13);
+		add(data, 12345678901.234, 0, 13);
+		add(data, 123456789012.34, 0, 13);
+		add(data, 1234567890123.4, 0, 13);
+
+		add(data, 12345678.901234, 0, 13);
+		add(data, 12345678.9012345, 0, 13);
+		add(data, 12345678.90123456, 0, 13);
+		add(data, 12345678.901234567, 0, 13);
+		add(data, 12345678.9012345678, 0, 13);
+		add(data, 12345678.90123456789, 0, 13);
+	}
+
+	private static void add(List<Object[]> data, double number,
+			int minFractionDigits, int maxFractionDigits)
 	{
 		for (int f = minFractionDigits; f <= maxFractionDigits; f++) {
-			formatAndCheck(number, f);
+			add(data, number, f);
 		}
 	}
 
-	private void formatAndCheck(double number, int fractionDigits)
+	private static void add(List<Object[]> data, double number, int fraction)
+	{
+		data.add(new Object[] { number, fraction });
+	}
+
+	private double number;
+	private int fractionDigits;
+
+	public TestDoubleFormatter(double number, int fractionDigits)
+	{
+		this.number = number;
+		this.fractionDigits = fractionDigits;
+	}
+
+	@Test
+	public void formatAndCheck()
 	{
 		DoubleFormatter formatter = new DoubleFormatter();
 		formatter.setFractionDigits(fractionDigits);
