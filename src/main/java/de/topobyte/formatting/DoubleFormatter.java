@@ -39,6 +39,17 @@ public class DoubleFormatter
 
 	public void format(StringBuilder buffer, double d)
 	{
+		if (Double.isNaN(d)) {
+			buffer.append("NaN");
+			return;
+		} else if (d == Double.POSITIVE_INFINITY) {
+			buffer.append("Infinity");
+			return;
+		} else if (d == Double.NEGATIVE_INFINITY) {
+			buffer.append("-Infinity");
+			return;
+		}
+
 		long integral = (long) d;
 
 		boolean negative = d < 0;
