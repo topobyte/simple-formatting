@@ -33,15 +33,20 @@ public class DoubleFormatter
 	public String format(double d)
 	{
 		StringBuilder buffer = new StringBuilder();
+		format(buffer, d);
+		return buffer.toString();
+	}
+
+	public void format(StringBuilder buffer, double d)
+	{
 		long integral = (long) d;
+
 		buffer.append(integral);
 
 		if (fractionDigits > 0) {
 			buffer.append(".");
 			formatFractionDigits(buffer, d);
 		}
-
-		return buffer.toString();
 	}
 
 	private void formatFractionDigits(StringBuilder buffer, double d)
