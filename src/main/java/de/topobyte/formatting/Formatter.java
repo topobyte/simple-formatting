@@ -71,6 +71,9 @@ public class Formatter
 					f.format(buffer, (short) arg);
 				} else if (arg instanceof Byte) {
 					f.format(buffer, (byte) arg);
+				} else {
+					throw new IllegalArgumentException(
+							"integral argument expected");
 				}
 				break;
 			}
@@ -85,6 +88,9 @@ public class Formatter
 					f.format(buffer, (short) arg);
 				} else if (arg instanceof Byte) {
 					f.format(buffer, (byte) arg);
+				} else {
+					throw new IllegalArgumentException(
+							"integral argument expected");
 				}
 				break;
 			}
