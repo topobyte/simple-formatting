@@ -17,27 +17,32 @@
 
 package de.topobyte.formatting;
 
-public class LongFormatter implements ILongFormatter
+public class LiteralFormatter implements IVoidFormatter
 {
+
+	private String literal;
+
+	public LiteralFormatter(String literal)
+	{
+		this.literal = literal;
+	}
 
 	@Override
 	public Type getType()
 	{
-		return Type.LONG;
+		return Type.NONE;
 	}
 
 	@Override
-	public String format(long n)
+	public String format()
 	{
-		StringBuilder buffer = new StringBuilder();
-		format(buffer, n);
-		return buffer.toString();
+		return literal;
 	}
 
 	@Override
-	public void format(StringBuilder buffer, long n)
+	public void format(StringBuilder buffer)
 	{
-		buffer.append(n);
+		buffer.append(literal);
 	}
 
 }

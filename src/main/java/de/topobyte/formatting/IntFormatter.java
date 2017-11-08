@@ -17,14 +17,16 @@
 
 package de.topobyte.formatting;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public class IntFormatter
+public class IntFormatter implements IIntFormatter
 {
 
-	final static Logger logger = LoggerFactory.getLogger(IntFormatter.class);
+	@Override
+	public Type getType()
+	{
+		return Type.INT;
+	}
 
+	@Override
 	public String format(int n)
 	{
 		StringBuilder buffer = new StringBuilder();
@@ -32,6 +34,7 @@ public class IntFormatter
 		return buffer.toString();
 	}
 
+	@Override
 	public void format(StringBuilder buffer, int n)
 	{
 		buffer.append(n);

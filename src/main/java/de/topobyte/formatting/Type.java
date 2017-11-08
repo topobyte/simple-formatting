@@ -17,27 +17,12 @@
 
 package de.topobyte.formatting;
 
-public class LongFormatter implements ILongFormatter
-{
+public enum Type {
 
-	@Override
-	public Type getType()
-	{
-		return Type.LONG;
-	}
-
-	@Override
-	public String format(long n)
-	{
-		StringBuilder buffer = new StringBuilder();
-		format(buffer, n);
-		return buffer.toString();
-	}
-
-	@Override
-	public void format(StringBuilder buffer, long n)
-	{
-		buffer.append(n);
-	}
+	NONE,
+	STRING,
+	INT,
+	LONG,
+	DOUBLE,
 
 }

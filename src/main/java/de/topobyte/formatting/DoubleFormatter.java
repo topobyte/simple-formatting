@@ -23,13 +23,20 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DoubleFormatter
+public class DoubleFormatter implements IDoubleFormatter
 {
 
 	final static Logger logger = LoggerFactory.getLogger(DoubleFormatter.class);
 
 	private int fractionDigits = 6;
 
+	@Override
+	public Type getType()
+	{
+		return Type.DOUBLE;
+	}
+
+	@Override
 	public String format(double d)
 	{
 		StringBuilder buffer = new StringBuilder();
@@ -37,6 +44,7 @@ public class DoubleFormatter
 		return buffer.toString();
 	}
 
+	@Override
 	public void format(StringBuilder buffer, double d)
 	{
 		if (Double.isNaN(d)) {
