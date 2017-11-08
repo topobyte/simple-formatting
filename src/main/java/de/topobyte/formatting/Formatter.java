@@ -33,11 +33,11 @@ public class Formatter
 	public String format(Object... args)
 	{
 		StringBuilder buffer = new StringBuilder();
-		format(buffer, args);
+		formatBuilder(buffer, args);
 		return buffer.toString();
 	}
 
-	public void format(StringBuilder buffer, Object... args)
+	public void formatBuilder(StringBuilder buffer, Object... args)
 	{
 		int idx = 0;
 
