@@ -19,22 +19,40 @@ package de.topobyte.formatting;
 
 import java.util.List;
 
-public class Formatting
+import org.junit.Assert;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class TestFormatParser
 {
 
-	public static String format(String format, Object... args)
+	final static Logger logger = LoggerFactory
+			.getLogger(TestFormatParser.class);
+
+	@Test
+	public void test1()
 	{
-		StringBuilder buffer = new StringBuilder();
-		formatBuilder(buffer, format, args);
-		return buffer.toString();
+		List<IFormatter> formatters = FormatParser.parse("foo: %d, bar: %s");
+		for (IFormatter formatter : formatters) {
+			logger.debug(formatter.getClass().getSimpleName());
+		}
 	}
 
-	public static void formatBuilder(StringBuilder buffer, String format,
-			Object... args)
+	@Test
+	public void test2()
 	{
-		List<IFormatter> formatters = FormatParser.parse(format);
-		Formatter formatter = new Formatter(formatters);
-		formatter.formatBuilder(buffer, args);
+		String result = Formatting.format("foo: %d, bar: %s", 34, "yeah");
+		logger.debug("result: " + result);
+		Assert.assertEquals("foo: 34, bar: yeah", result);
+	}
+
+	@Test
+	public void test3()
+	{
+		String result = Formatting.format("foo: %f, bar: %s", -12.345, "yeah");
+		logger.debug("result: " + result);
+		Assert.assertEquals("foo: -12.345000, bar: yeah", result);
 	}
 
 }
