@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    compile 'de.topobyte:integer-formatting:0.0.1'
+    compile 'de.topobyte:integer-formatting:0.0.2'
     compile 'org.slf4j:slf4j-api:1.6.1'
 
     testCompile 'junit:junit:4.12'
