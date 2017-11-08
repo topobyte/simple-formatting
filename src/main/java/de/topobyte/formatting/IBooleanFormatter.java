@@ -17,13 +17,11 @@
 
 package de.topobyte.formatting;
 
-public enum Type {
+public interface IBooleanFormatter extends IFormatter
+{
 
-	NONE,
-	STRING,
-	BOOLEAN,
-	INT,
-	LONG,
-	DOUBLE,
+	String format(boolean d);
+
+	void format(StringBuilder buffer, boolean d);
 
 }

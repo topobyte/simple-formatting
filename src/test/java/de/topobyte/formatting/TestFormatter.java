@@ -40,13 +40,16 @@ public class TestFormatter
 		formatters.add(new DoubleFormatter());
 		formatters.add(new LiteralFormatter(", cat: "));
 		formatters.add(new LongFormatter());
+		formatters.add(new LiteralFormatter(", really? "));
+		formatters.add(new BooleanFormatter());
 
 		Formatter formatter = new Formatter(formatters);
 
-		String output = formatter.format("test", 1.2, 13);
+		String output = formatter.format("test", 1.2, 13, true);
 
 		logger.debug("output: " + output);
-		Assert.assertEquals("foo: test, bar: 1.200000, cat: 13", output);
+		Assert.assertEquals("foo: test, bar: 1.200000, cat: 13, really? true",
+				output);
 	}
 
 }

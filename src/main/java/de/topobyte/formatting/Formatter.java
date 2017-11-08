@@ -57,6 +57,11 @@ public class Formatter
 				f.format(buffer, (String) args[idx++]);
 				break;
 			}
+			case BOOLEAN: {
+				IBooleanFormatter f = (IBooleanFormatter) formatter;
+				f.format(buffer, (boolean) args[idx++]);
+				break;
+			}
 			case INT: {
 				IIntFormatter f = (IIntFormatter) formatter;
 				Object arg = args[idx++];

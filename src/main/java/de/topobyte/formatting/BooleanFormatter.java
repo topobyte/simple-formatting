@@ -17,13 +17,27 @@
 
 package de.topobyte.formatting;
 
-public enum Type {
+public class BooleanFormatter implements IBooleanFormatter
+{
 
-	NONE,
-	STRING,
-	BOOLEAN,
-	INT,
-	LONG,
-	DOUBLE,
+	@Override
+	public Type getType()
+	{
+		return Type.BOOLEAN;
+	}
+
+	@Override
+	public String format(boolean b)
+	{
+		StringBuilder buffer = new StringBuilder();
+		format(buffer, b);
+		return buffer.toString();
+	}
+
+	@Override
+	public void format(StringBuilder buffer, boolean b)
+	{
+		buffer.append(b);
+	}
 
 }
