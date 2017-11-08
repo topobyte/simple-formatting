@@ -52,4 +52,40 @@ public class TestFormatter
 				output);
 	}
 
+	@Test
+	public void testHexLower()
+	{
+		List<IFormatter> formatters = new ArrayList<>();
+		formatters.add(new LiteralFormatter("foo: 0x"));
+		IntHexFormatter hexFormatter = new IntHexFormatter();
+		hexFormatter.setCase(Case.Lowercase);
+		formatters.add(hexFormatter);
+
+		Formatter formatter = new Formatter(formatters);
+
+		int a = 0xf89d;
+		String output = formatter.format(a);
+
+		logger.debug("output: " + output);
+		Assert.assertEquals("foo: 0xf89d", output);
+	}
+
+	@Test
+	public void testHexUpper()
+	{
+		List<IFormatter> formatters = new ArrayList<>();
+		formatters.add(new LiteralFormatter("foo: 0x"));
+		IntHexFormatter hexFormatter = new IntHexFormatter();
+		hexFormatter.setCase(Case.Uppercase);
+		formatters.add(hexFormatter);
+
+		Formatter formatter = new Formatter(formatters);
+
+		int a = 0xf89d;
+		String output = formatter.format(a);
+
+		logger.debug("output: " + output);
+		Assert.assertEquals("foo: 0xF89D", output);
+	}
+
 }
