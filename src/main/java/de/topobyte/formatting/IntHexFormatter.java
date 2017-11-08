@@ -37,6 +37,7 @@ public class IntHexFormatter implements IIntFormatter
 	@Override
 	public void format(StringBuilder buffer, int n)
 	{
+		// TODO: reimplement this
 		String hex = Integer.toHexString(n);
 		buffer.append(hex);
 	}

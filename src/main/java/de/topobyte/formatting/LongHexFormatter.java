@@ -37,6 +37,7 @@ public class LongHexFormatter implements ILongFormatter
 	@Override
 	public void format(StringBuilder buffer, long n)
 	{
+		// TODO: reimplement this
 		String hex = Long.toHexString(n);
 		buffer.append(hex);
 	}
