@@ -113,7 +113,7 @@ public class DoubleFormatter implements IDoubleFormatter
 		for (int i = 0; i < validDigits; i++) {
 			int integral = (int) (x);
 
-			logger.debug(String.format("%.30f %d", x, integral));
+			logger.debug(x + " " + integral);
 			ints.add(integral);
 			number = x;
 			x = (number - integral) * 10;
