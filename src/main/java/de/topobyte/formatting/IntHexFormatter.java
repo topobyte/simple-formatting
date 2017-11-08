@@ -20,6 +20,8 @@ package de.topobyte.formatting;
 public class IntHexFormatter implements IIntFormatter
 {
 
+	private Case c = Case.Lowercase;
+
 	@Override
 	public Type getType()
 	{
@@ -37,9 +39,18 @@ public class IntHexFormatter implements IIntFormatter
 	@Override
 	public void format(StringBuilder buffer, int n)
 	{
-		// TODO: reimplement this
-		String hex = Integer.toHexString(n);
+		String hex = IntegerFormatting.intToHexString(n, c);
 		buffer.append(hex);
+	}
+
+	public Case getCase()
+	{
+		return c;
+	}
+
+	public void setCase(Case c)
+	{
+		this.c = c;
 	}
 
 }
