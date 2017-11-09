@@ -120,6 +120,8 @@ public class FormatParser
 	{
 		logger.debug("parse formatter at: " + pos);
 		pos++;
+		// TODO: use a list of primitive chars here
+		List<Character> flags = new ArrayList<>();
 		while (pos < numChars) {
 			char c = format.charAt(pos++);
 			logger.debug("char: " + c);
@@ -127,7 +129,7 @@ public class FormatParser
 				conversion(c);
 				break;
 			} else if (isFlag(c)) {
-				// TODO: accumulate flags
+				flags.add(c);
 			}
 		}
 	}
