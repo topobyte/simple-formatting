@@ -28,7 +28,10 @@ public class DoubleFormatter implements IDoubleFormatter
 
 	final static Logger logger = LoggerFactory.getLogger(DoubleFormatter.class);
 
+	private int minWidth = 1;
 	private int fractionDigits = 6;
+	private char padChar = ' ';
+	private boolean padBeforeMinus = true;
 
 	@Override
 	public Type getType()
@@ -48,12 +51,15 @@ public class DoubleFormatter implements IDoubleFormatter
 	public void format(StringBuilder buffer, double d)
 	{
 		if (Double.isNaN(d)) {
+			pad(buffer, minWidth - 3, ' ');
 			buffer.append("NaN");
 			return;
 		} else if (d == Double.POSITIVE_INFINITY) {
+			pad(buffer, minWidth - 8, ' ');
 			buffer.append("Infinity");
 			return;
 		} else if (d == Double.NEGATIVE_INFINITY) {
+			pad(buffer, minWidth - 9, ' ');
 			buffer.append("-Infinity");
 			return;
 		}
@@ -75,13 +81,46 @@ public class DoubleFormatter implements IDoubleFormatter
 				}
 			}
 		}
-		String integralPart = Long.toString(integral);
-		buffer.append(integralPart);
-		int usedDigits = integralPart.length();
+
+		int lenIntegral;
+		if (!negative) {
+			String integralPart = Long.toString(integral);
+			lenIntegral = integralPart.length();
+			int used = lenIntegral + fractionDigits;
+			if (fractionDigits > 0) {
+				used += 1;
+			}
+			pad(buffer, minWidth - used, padChar);
+			buffer.append(integralPart);
+		} else {
+			String integralPart = Long.toString(-integral);
+			lenIntegral = integralPart.length();
+			int used = lenIntegral + fractionDigits;
+			used += 1; // account for minus sign
+			if (fractionDigits > 0) {
+				used += 1;
+			}
+			if (padBeforeMinus) {
+				pad(buffer, minWidth - used, padChar);
+			}
+			buffer.append('-');
+			if (!padBeforeMinus) {
+				pad(buffer, minWidth - used, padChar);
+			}
+			buffer.append(integralPart);
+		}
+		int usedDigits = lenIntegral;
 
 		if (fractionDigits > 0) {
 			buffer.append(".");
 			formatFractionDigits(buffer, d, usedDigits);
+		}
+	}
+
+	private void pad(StringBuilder buffer, int n, char c)
+	{
+		for (int i = 0; i < n; i++) {
+			buffer.append(c);
 		}
 	}
 
@@ -144,6 +183,16 @@ public class DoubleFormatter implements IDoubleFormatter
 		}
 	}
 
+	public int getMinWidth()
+	{
+		return minWidth;
+	}
+
+	public void setMinWidth(int minWidth)
+	{
+		this.minWidth = minWidth;
+	}
+
 	public int getFractionDigits()
 	{
 		return fractionDigits;
@@ -152,6 +201,26 @@ public class DoubleFormatter implements IDoubleFormatter
 	public void setFractionDigits(int fractionDigits)
 	{
 		this.fractionDigits = fractionDigits;
+	}
+
+	public char getPadChar()
+	{
+		return padChar;
+	}
+
+	public void setPadChar(char padChar)
+	{
+		this.padChar = padChar;
+	}
+
+	public boolean isPadBeforeMinus()
+	{
+		return padBeforeMinus;
+	}
+
+	public void setPadBeforeMinus(boolean padBeforeMinus)
+	{
+		this.padBeforeMinus = padBeforeMinus;
 	}
 
 }
