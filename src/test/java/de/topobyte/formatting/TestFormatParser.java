@@ -63,4 +63,13 @@ public class TestFormatParser
 		Assert.assertEquals("foo: true, bar: false", result);
 	}
 
+	@Test
+	public void testDangling()
+	{
+		String result = Formatting.format("foo: %b, bar: %s some leftover text",
+				true, "check");
+		logger.debug("result: " + result);
+		Assert.assertEquals("foo: true, bar: check some leftover text", result);
+	}
+
 }

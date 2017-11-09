@@ -56,12 +56,7 @@ public class FormatParser
 		while (pos < numChars) {
 			char c = format.charAt(pos);
 			if (c == '%') {
-				if (accu.length() != 0) {
-					String current = accu.toString();
-					logger.debug("literal: \"" + current + "\"");
-					formatters.add(new LiteralFormatter(current));
-					accu.setLength(0);
-				}
+				appendAccu(accu);
 				parseFormatter();
 				continue;
 			} else {
@@ -69,6 +64,18 @@ public class FormatParser
 			}
 			pos++;
 		}
+		appendAccu(accu);
+	}
+
+	private void appendAccu(StringBuilder accu)
+	{
+		if (accu.length() == 0) {
+			return;
+		}
+		String current = accu.toString();
+		logger.debug("literal: \"" + current + "\"");
+		formatters.add(new LiteralFormatter(current));
+		accu.setLength(0);
 	}
 
 	private void parseFormatter()
