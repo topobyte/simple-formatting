@@ -18,7 +18,9 @@
 package de.topobyte.formatting;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,6 +86,34 @@ public class FormatParser
 	// This is the format for conversions:
 	// %[argument_index$][flags][width][.precision]conversion
 
+	private char[] flags = new char[] { '0', '#', '+', '(', ',', ' ', '.' };
+	private char[] conversions = new char[] { 's', 'd', 'f', 'b', 'x', 'X', '%',
+			'n' };
+
+	private Set<Character> flagLookup = new HashSet<>();
+	{
+		for (char c : flags) {
+			flagLookup.add(c);
+		}
+	}
+
+	private Set<Character> conversionLookup = new HashSet<>();
+	{
+		for (char c : conversions) {
+			conversionLookup.add(c);
+		}
+	}
+
+	private boolean isFlag(char c)
+	{
+		return flagLookup.contains(c);
+	}
+
+	private boolean isConversion(char c)
+	{
+		return conversionLookup.contains(c);
+	}
+
 	private void parseFormatter()
 	{
 		logger.debug("parse formatter at: " + pos);
@@ -91,40 +121,42 @@ public class FormatParser
 		while (pos < numChars) {
 			char c = format.charAt(pos++);
 			logger.debug("char: " + c);
-			if (c == 's') {
-				formatters.add(new StringFormatter());
+			if (isConversion(c)) {
+				conversion(c);
 				break;
-			} else if (c == '%') {
-				formatters.add(new LiteralFormatter("%"));
-				break;
-			} else if (c == 'n') {
-				// TODO: this is not the _platform-specific_ line separator
-				formatters.add(new LiteralFormatter("\n"));
-				break;
-			} else if (c == 'b') {
-				formatters.add(new BooleanFormatter());
-				break;
-			} else if (c == 'd') {
-				formatters.add(new LongFormatter());
-				break;
-			} else if (c == 'f') {
-				DoubleFormatter formatter = new DoubleFormatter();
-				formatter.setFractionDigits(6);
-				formatters.add(formatter);
-				break;
-			} else if (c == 'x') {
-				LongHexFormatter formatter = new LongHexFormatter();
-				formatter.setCase(Case.Lowercase);
-				formatters.add(formatter);
-				break;
-			} else if (c == 'X') {
-				LongHexFormatter formatter = new LongHexFormatter();
-				formatter.setCase(Case.Uppercase);
-				formatters.add(formatter);
-				break;
-			} else {
-				throw new IllegalArgumentException("Unable to parse format");
+			} else if (isFlag(c)) {
+				// TODO: accumulate flags
 			}
+		}
+	}
+
+	private void conversion(char c)
+	{
+		if (c == 's') {
+			formatters.add(new StringFormatter());
+		} else if (c == '%') {
+			formatters.add(new LiteralFormatter("%"));
+		} else if (c == 'n') {
+			// TODO: this is not the _platform-specific_ line separator
+			formatters.add(new LiteralFormatter("\n"));
+		} else if (c == 'b') {
+			formatters.add(new BooleanFormatter());
+		} else if (c == 'd') {
+			formatters.add(new LongFormatter());
+		} else if (c == 'f') {
+			DoubleFormatter formatter = new DoubleFormatter();
+			formatter.setFractionDigits(6);
+			formatters.add(formatter);
+		} else if (c == 'x') {
+			LongHexFormatter formatter = new LongHexFormatter();
+			formatter.setCase(Case.Lowercase);
+			formatters.add(formatter);
+		} else if (c == 'X') {
+			LongHexFormatter formatter = new LongHexFormatter();
+			formatter.setCase(Case.Uppercase);
+			formatters.add(formatter);
+		} else {
+			throw new IllegalArgumentException("Unable to parse format");
 		}
 	}
 
