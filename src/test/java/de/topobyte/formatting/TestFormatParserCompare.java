@@ -43,6 +43,8 @@ public class TestFormatParserCompare
 		formatAndCheck("foo: %d, bar: %s", 34, "yeah");
 		formatAndCheck("foo: %f, bar: %s", -12.345, "yeah");
 		formatAndCheck("foo: %b, bar: %b", true, false);
+		formatAndCheck("foo: %x, bar: %#x", 45, 46);
+		formatAndCheck("foo: %X, bar: %#X", 45, 46);
 	}
 
 }
