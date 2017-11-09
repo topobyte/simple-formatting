@@ -55,4 +55,12 @@ public class TestFormatParser
 		Assert.assertEquals("foo: -12.345000, bar: yeah", result);
 	}
 
+	@Test
+	public void test4()
+	{
+		String result = Formatting.format("foo: %b, bar: %b", true, false);
+		logger.debug("result: " + result);
+		Assert.assertEquals("foo: true, bar: false", result);
+	}
+
 }

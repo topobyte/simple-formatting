@@ -81,6 +81,9 @@ public class FormatParser
 			if (c == 's') {
 				formatters.add(new StringFormatter());
 				break;
+			} else if (c == 'b') {
+				formatters.add(new BooleanFormatter());
+				break;
 			} else if (c == 'd') {
 				formatters.add(new LongFormatter());
 				break;
