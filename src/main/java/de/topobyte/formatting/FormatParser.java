@@ -78,6 +78,12 @@ public class FormatParser
 		accu.setLength(0);
 	}
 
+	// See this reference:
+	// https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html
+	//
+	// This is the format for conversions:
+	// %[argument_index$][flags][width][.precision]conversion
+
 	private void parseFormatter()
 	{
 		logger.debug("parse formatter at: " + pos);
