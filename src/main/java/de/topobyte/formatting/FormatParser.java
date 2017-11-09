@@ -89,6 +89,8 @@ public class FormatParser
 	private char[] flags = new char[] { '0', '#', '+', '(', ',', ' ' };
 	private char[] conversions = new char[] { 's', 'd', 'f', 'b', 'x', 'X', '%',
 			'n' };
+	private char[] digits = new char[] { '0', '1', '2', '3', '4', '5', '6', '7',
+			'8', '9' };
 
 	// TODO: use set with primitives here
 	private Set<Character> flagLookup = new HashSet<>();
@@ -104,7 +106,7 @@ public class FormatParser
 		for (char c : flags) {
 			optionLookup.add(c);
 		}
-		for (char c = '0'; c <= '9'; c++) {
+		for (char c : digits) {
 			optionLookup.add(c);
 		}
 		optionLookup.add('.');
