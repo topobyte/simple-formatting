@@ -96,7 +96,23 @@ public class Formatter
 			}
 			case DOUBLE: {
 				IDoubleFormatter f = (IDoubleFormatter) formatter;
-				f.format(buffer, (double) args[idx++]);
+				Object arg = args[idx++];
+				if (arg instanceof Double) {
+					f.format(buffer, (double) arg);
+				} else if (arg instanceof Float) {
+					f.format(buffer, (float) arg);
+				} else if (arg instanceof Long) {
+					f.format(buffer, (long) arg);
+				} else if (arg instanceof Integer) {
+					f.format(buffer, (int) arg);
+				} else if (arg instanceof Short) {
+					f.format(buffer, (short) arg);
+				} else if (arg instanceof Byte) {
+					f.format(buffer, (byte) arg);
+				} else {
+					throw new IllegalArgumentException(
+							"numeric argument expected");
+				}
 				break;
 			}
 			}
