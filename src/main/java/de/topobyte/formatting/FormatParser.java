@@ -94,6 +94,13 @@ public class FormatParser
 			if (c == 's') {
 				formatters.add(new StringFormatter());
 				break;
+			} else if (c == '%') {
+				formatters.add(new LiteralFormatter("%"));
+				break;
+			} else if (c == 'n') {
+				// TODO: this is not the _platform-specific_ line separator
+				formatters.add(new LiteralFormatter("\n"));
+				break;
 			} else if (c == 'b') {
 				formatters.add(new BooleanFormatter());
 				break;
