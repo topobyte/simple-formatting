@@ -99,11 +99,27 @@ public class FormatParser
 	}
 
 	// TODO: use set with primitives here
+	private Set<Character> optionLookup = new HashSet<>();
+	{
+		for (char c : flags) {
+			optionLookup.add(c);
+		}
+		for (char c = '0'; c <= '9'; c++) {
+			optionLookup.add(c);
+		}
+	}
+
+	// TODO: use set with primitives here
 	private Set<Character> conversionLookup = new HashSet<>();
 	{
 		for (char c : conversions) {
 			conversionLookup.add(c);
 		}
+	}
+
+	private boolean isOption(char c)
+	{
+		return optionLookup.contains(c);
 	}
 
 	private boolean isFlag(char c)
@@ -120,21 +136,20 @@ public class FormatParser
 	{
 		logger.debug("parse formatter at: " + pos);
 		pos++;
-		// TODO: use a list of primitive chars here
-		List<Character> flags = new ArrayList<>();
+		StringBuilder options = new StringBuilder();
 		while (pos < numChars) {
 			char c = format.charAt(pos++);
 			logger.debug("char: " + c);
 			if (isConversion(c)) {
-				conversion(c);
+				conversion(c, options);
 				break;
-			} else if (isFlag(c)) {
-				flags.add(c);
+			} else if (isOption(c)) {
+				options.append(c);
 			}
 		}
 	}
 
-	private void conversion(char c)
+	private void conversion(char c, StringBuilder options)
 	{
 		if (c == 's') {
 			formatters.add(new StringFormatter());
