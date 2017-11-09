@@ -21,6 +21,7 @@ public class IntHexFormatter implements IIntFormatter
 {
 
 	private Case c = Case.Lowercase;
+	private boolean printRadixIndicator = false;
 
 	@Override
 	public Type getType()
@@ -40,6 +41,9 @@ public class IntHexFormatter implements IIntFormatter
 	public void format(StringBuilder buffer, int n)
 	{
 		String hex = IntegerFormatting.intToHexString(n, c);
+		if (printRadixIndicator) {
+			buffer.append("0x");
+		}
 		buffer.append(hex);
 	}
 
@@ -51,6 +55,16 @@ public class IntHexFormatter implements IIntFormatter
 	public void setCase(Case c)
 	{
 		this.c = c;
+	}
+
+	public boolean isPrintRadixIndicator()
+	{
+		return printRadixIndicator;
+	}
+
+	public void setPrintRadixIndicator(boolean printRadixIndicator)
+	{
+		this.printRadixIndicator = printRadixIndicator;
 	}
 
 }

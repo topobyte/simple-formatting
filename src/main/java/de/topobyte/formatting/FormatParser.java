@@ -168,15 +168,31 @@ public class FormatParser
 			formatters.add(formatter);
 		} else if (c == 'x') {
 			LongHexFormatter formatter = new LongHexFormatter();
+			if (hasFlag(options, '#')) {
+				formatter.setPrintRadixIndicator(true);
+			}
 			formatter.setCase(Case.Lowercase);
 			formatters.add(formatter);
 		} else if (c == 'X') {
 			LongHexFormatter formatter = new LongHexFormatter();
+			if (hasFlag(options, '#')) {
+				formatter.setPrintRadixIndicator(true);
+			}
 			formatter.setCase(Case.Uppercase);
 			formatters.add(formatter);
 		} else {
 			throw new IllegalArgumentException("Unable to parse format");
 		}
+	}
+
+	private boolean hasFlag(StringBuilder options, char c)
+	{
+		for (int i = 0; i < options.length(); i++) {
+			if (options.charAt(i) == c) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
