@@ -164,8 +164,11 @@ public class FormatParser
 		} else if (c == 'd') {
 			formatters.add(new LongFormatter());
 		} else if (c == 'f') {
+			PrecisionResult precision = precision(options);
 			DoubleFormatter formatter = new DoubleFormatter();
-			formatter.setFractionDigits(6);
+			if (precision.isPresent) {
+				formatter.setFractionDigits(precision.precision);
+			}
 			formatters.add(formatter);
 		} else if (c == 'x') {
 			LongHexFormatter formatter = new LongHexFormatter();
@@ -194,6 +197,45 @@ public class FormatParser
 			}
 		}
 		return false;
+	}
+
+	private class PrecisionResult
+	{
+
+		boolean isPresent = false;
+		int precision = 0;
+
+	}
+
+	private PrecisionResult precision(StringBuilder options)
+	{
+		PrecisionResult result = new PrecisionResult();
+
+		int dot = -1;
+		for (int i = 0; i < options.length(); i++) {
+			if (options.charAt(i) == '.') {
+				dot = i;
+				break;
+			}
+		}
+		if (dot < 0) {
+			return result;
+		}
+
+		int precision = 0;
+		for (int i = dot + 1; i < options.length(); i++) {
+			char c = options.charAt(i);
+			if (!Character.isDigit(c)) {
+				throw new IllegalArgumentException(
+						"invalid precision character: '" + c + "'");
+			}
+			precision *= 10;
+			precision += c - '0';
+		}
+
+		result.isPresent = true;
+		result.precision = precision;
+		return result;
 	}
 
 }
