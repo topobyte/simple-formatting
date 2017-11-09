@@ -42,7 +42,7 @@ public class IntHexFormatter implements IIntFormatter
 	{
 		String hex = IntegerFormatting.intToHexString(n, c);
 		if (printRadixIndicator) {
-			buffer.append("0x");
+			buffer.append(c == Case.Uppercase ? "0X" : "0x");
 		}
 		buffer.append(hex);
 	}

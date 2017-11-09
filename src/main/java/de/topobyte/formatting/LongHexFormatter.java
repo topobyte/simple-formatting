@@ -42,7 +42,7 @@ public class LongHexFormatter implements ILongFormatter
 	{
 		String hex = IntegerFormatting.longToHexString(n, c);
 		if (printRadixIndicator) {
-			buffer.append("0x");
+			buffer.append(c == Case.Uppercase ? "0X" : "0x");
 		}
 		buffer.append(hex);
 	}
