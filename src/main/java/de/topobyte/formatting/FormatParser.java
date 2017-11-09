@@ -86,7 +86,7 @@ public class FormatParser
 	// This is the format for conversions:
 	// %[argument_index$][flags][width][.precision]conversion
 
-	private char[] flags = new char[] { '0', '#', '+', '(', ',', ' ', '.' };
+	private char[] flags = new char[] { '0', '#', '+', '(', ',', ' ' };
 	private char[] conversions = new char[] { 's', 'd', 'f', 'b', 'x', 'X', '%',
 			'n' };
 
@@ -107,6 +107,7 @@ public class FormatParser
 		for (char c = '0'; c <= '9'; c++) {
 			optionLookup.add(c);
 		}
+		optionLookup.add('.');
 	}
 
 	// TODO: use set with primitives here
