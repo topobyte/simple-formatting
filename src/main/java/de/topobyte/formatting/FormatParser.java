@@ -90,6 +90,7 @@ public class FormatParser
 	private char[] conversions = new char[] { 's', 'd', 'f', 'b', 'x', 'X', '%',
 			'n' };
 
+	// TODO: use set with primitives here
 	private Set<Character> flagLookup = new HashSet<>();
 	{
 		for (char c : flags) {
@@ -97,6 +98,7 @@ public class FormatParser
 		}
 	}
 
+	// TODO: use set with primitives here
 	private Set<Character> conversionLookup = new HashSet<>();
 	{
 		for (char c : conversions) {
