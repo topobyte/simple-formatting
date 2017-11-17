@@ -23,6 +23,10 @@ public class IntHexFormatter implements IIntFormatter
 	private Case c = Case.Lowercase;
 	private boolean printRadixIndicator = false;
 
+	private int minWidth = 1;
+	private char padChar = ' ';
+	private boolean padBeforeRadixIndicator = true;
+
 	@Override
 	public Type getType()
 	{
@@ -41,10 +45,28 @@ public class IntHexFormatter implements IIntFormatter
 	public void format(StringBuilder buffer, int n)
 	{
 		String hex = IntegerFormatting.intToHexString(n, c);
+		int len = hex.length();
+		if (printRadixIndicator) {
+			len += 2;
+		}
+		if (padBeforeRadixIndicator && len < minWidth) {
+			pad(buffer, len);
+		}
 		if (printRadixIndicator) {
 			buffer.append(c == Case.Uppercase ? "0X" : "0x");
 		}
+		if (!padBeforeRadixIndicator && len < minWidth) {
+			pad(buffer, len);
+		}
 		buffer.append(hex);
+	}
+
+	private void pad(StringBuilder buffer, int len)
+	{
+		int rem = minWidth - len;
+		for (int i = 0; i < rem; i++) {
+			buffer.append(padChar);
+		}
 	}
 
 	public Case getCase()
@@ -65,6 +87,36 @@ public class IntHexFormatter implements IIntFormatter
 	public void setPrintRadixIndicator(boolean printRadixIndicator)
 	{
 		this.printRadixIndicator = printRadixIndicator;
+	}
+
+	public int getMinWidth()
+	{
+		return minWidth;
+	}
+
+	public void setMinWidth(int minWidth)
+	{
+		this.minWidth = minWidth;
+	}
+
+	public char getPadChar()
+	{
+		return padChar;
+	}
+
+	public void setPadChar(char padChar)
+	{
+		this.padChar = padChar;
+	}
+
+	public boolean isPadBeforeRadixIndicator()
+	{
+		return padBeforeRadixIndicator;
+	}
+
+	public void setPadBeforeRadixIndicator(boolean padBeforeRadixIndicator)
+	{
+		this.padBeforeRadixIndicator = padBeforeRadixIndicator;
 	}
 
 }
