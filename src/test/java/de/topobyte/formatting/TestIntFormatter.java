@@ -79,8 +79,8 @@ public class TestIntFormatter
 		IntFormatter formatter = new IntFormatter();
 		String ours = formatter.format(number);
 		String theirs = String.format("%d", number);
-		logger.debug("ours:   " + ours);
-		logger.debug("theirs: " + theirs);
+		logger.debug("ours:   '" + ours + "'");
+		logger.debug("theirs: '" + theirs + "'");
 		Assert.assertEquals(theirs, ours);
 	}
 

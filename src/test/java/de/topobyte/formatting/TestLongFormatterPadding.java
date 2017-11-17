@@ -105,10 +105,10 @@ public class TestLongFormatterPadding
 		String ours0 = formatter.format(number);
 		String theirs = String.format(String.format("%%%dd", width), number);
 		String theirs0 = String.format(String.format("%%0%dd", width), number);
-		logger.debug("ours:   " + ours);
-		logger.debug("theirs: " + theirs);
-		logger.debug("ours0:   " + ours0);
-		logger.debug("theirs0: " + theirs0);
+		logger.debug("ours:    '" + ours + "'");
+		logger.debug("theirs:  '" + theirs + "'");
+		logger.debug("ours0:   '" + ours0 + "'");
+		logger.debug("theirs0: '" + theirs0 + "'");
 		Assert.assertEquals(theirs, ours);
 		Assert.assertEquals(theirs0, ours0);
 	}

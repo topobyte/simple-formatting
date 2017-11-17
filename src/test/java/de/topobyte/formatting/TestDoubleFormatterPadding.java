@@ -121,10 +121,10 @@ public class TestDoubleFormatterPadding
 				String.format("%%%d.%df", width, fractionDigits), number);
 		String theirs0 = String.format(
 				String.format("%%0%d.%df", width, fractionDigits), number);
-		logger.debug("ours:    " + ours);
-		logger.debug("theirs:  " + theirs);
-		logger.debug("ours0:   " + ours0);
-		logger.debug("theirs0: " + theirs0);
+		logger.debug("ours:    '" + ours + "'");
+		logger.debug("theirs:  '" + theirs + "'");
+		logger.debug("ours0:   '" + ours0 + "'");
+		logger.debug("theirs0: '" + theirs0 + "'");
 		Assert.assertEquals(theirs, ours);
 		Assert.assertEquals(theirs0, ours0);
 	}
