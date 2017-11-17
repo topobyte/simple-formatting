@@ -20,6 +20,10 @@ package de.topobyte.formatting;
 public class LongFormatter implements ILongFormatter
 {
 
+	private int minWidth = 1;
+	private char padChar = ' ';
+	private boolean padBeforeMinus = true;
+
 	@Override
 	public Type getType()
 	{
@@ -37,7 +41,75 @@ public class LongFormatter implements ILongFormatter
 	@Override
 	public void format(StringBuilder buffer, long n)
 	{
-		buffer.append(n);
+		if (padBeforeMinus) {
+			formatPadBeforeMinus(buffer, n);
+		} else {
+			formatPadAfterMinus(buffer, n);
+		}
+	}
+
+	private void formatPadBeforeMinus(StringBuilder buffer, long n)
+	{
+		String s = Long.toString(n);
+		int len = s.length();
+		if (len < minWidth) {
+			int rem = minWidth - len;
+			for (int i = 0; i < rem; i++) {
+				buffer.append(padChar);
+			}
+		}
+		buffer.append(s);
+	}
+
+	private void formatPadAfterMinus(StringBuilder buffer, long n)
+	{
+		boolean negative = n < 0;
+		String s = Long.toString(n);
+		if (negative) {
+			buffer.append('-');
+		}
+		int len = s.length();
+		if (len < minWidth) {
+			int rem = minWidth - len;
+			for (int i = 0; i < rem; i++) {
+				buffer.append(padChar);
+			}
+		}
+		if (negative) {
+			buffer.append(s, 1, len);
+		} else {
+			buffer.append(s);
+		}
+	}
+
+	public int getMinWidth()
+	{
+		return minWidth;
+	}
+
+	public void setMinWidth(int minWidth)
+	{
+		this.minWidth = minWidth;
+	}
+
+	public char getPadChar()
+	{
+		return padChar;
+	}
+
+	public void setPadChar(char padChar)
+	{
+		this.padChar = padChar;
+	}
+
+	public boolean isPadBeforeMinus()
+	{
+		return padBeforeMinus;
+	}
+
+	public void setPadBeforeMinus(boolean padBeforeMinus)
+	{
+		this.padBeforeMinus = padBeforeMinus;
 	}
 
 }
